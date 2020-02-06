@@ -14,43 +14,13 @@
 
 using namespace std;
 
-void dibujarTriangulos() {
-	//establecemos el tipo de primitiva
-	glBegin(GL_TRIANGLES);
-	//establecemos color
-	glColor3f(1.0f, 0.0f, 0.5f); 
-	//enviar vertices
-	glVertex3f(0.0f, 0.7f, 0.0f);
-	glColor3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(-0.7f, -0.7f, 0.0f);
-	glColor3f(1.0f, 0.7f, 0.0f);
-	glVertex3f(0.7f, -0.7f, 0.0f);
-
-	glColor3f(0.4f, 0.6f, 1.0f);
-
-	glVertex3f(0.4f, 0.4f, 0.0f);
-	glVertex3f(-0.4f, 0.4f, 0.0f);
-	glVertex3f(0.4f, -0.4f, 0.0f);
-	glVertex3f(-0.4f, -0.4f, 0.0f);
-	glVertex3f(-0.4f, 0.4f, 0.0f);
-	glVertex3f(0.4f, -0.4f, 0.0f);
-	//especificar que dejaremos de dibujar
-
-	//glColor3f(0.6f, 0.7f, 0.8f);
-
-	//glVertex3f(-0.4f, 0.1f, 0.0f);
-
-
-	glEnd();
-}
-
 float posXTriangulo = 0.0f, posYTriangulo = 0.0f;
-float anguloTriangulo = 90.0f;
+float anguloTriangulo = 0.0f;
 //declarar una ventana
 GLFWwindow* window;
 double tiempoAnterior;
 double tiempoActual;
-double velocidadTriangulo = 0.7;
+double velocidadTriangulo = 0.6;
 
 /*void teclado_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -91,27 +61,27 @@ void actualizar()
 	{
 		//posXTriangulo += 0.5 * tiempoDiferencial;
 
-		anguloTriangulo -= 40.0 * tiempoDiferencial;
+		anguloTriangulo -= 180.0 * tiempoDiferencial;
 	}
 
 	if (estadoIzquierda == GLFW_PRESS)
 	{
 		//posXTriangulo -= 0.5 * tiempoDiferencial;
 
-		anguloTriangulo += 40.0 * tiempoDiferencial;
+		anguloTriangulo += 180.0 * tiempoDiferencial;
 	}
 
 	if (estadoArriba == GLFW_PRESS)
 	{
-		posYTriangulo += ;
-		posXTriangulo += 0.000001 * ;
+		posXTriangulo += velocidadTriangulo * tiempoDiferencial * cos((anguloTriangulo + 90.0) * 3.141592 / 180);
+		posYTriangulo += velocidadTriangulo * tiempoDiferencial * sin((anguloTriangulo +90.0) * 3.141592 / 180);
 	}
 
-	if (estadoAbajo == GLFW_PRESS)
+	/*if (estadoAbajo == GLFW_PRESS)
 	{
 		posYTriangulo -= 0.5 * tiempoDiferencial;
 
-	}
+	}*/
 	tiempoAnterior = tiempoActual;
 }
 
@@ -122,9 +92,12 @@ void dibujar() {
 
 	glRotatef(anguloTriangulo, 0.0f, 0.0f, 1.0f);
 
-	glBegin(GL_TRIANGLES);
+	glScalef(0.4f, 0.7f, 0.7);
 
-	glColor3f(0.2, 0.6, 0.1);
+	glBegin(GL_LINE_STRIP);
+
+	glColor3f(1.0, 1.0, 1.0);
+	glVertex3f(0.15f, -0.15f, 0.0f);
 	glVertex3f(0.0f, 0.15f, 0.0f);
 	glVertex3f(-0.15f, -0.15f, 0.0f);
 	glVertex3f(0.15f, -0.15f, 0.0f);
@@ -178,7 +151,7 @@ int main()
 		glViewport(0, 0, 600, 600);
 		//establecemos el color de borrado
 		//Valores RGBA
-		glClearColor(0.67, 0.84, 1.0, 1);
+		glClearColor(0.0, 0.0, 0.0, 1);
 		//Borrar!
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
